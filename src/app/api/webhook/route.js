@@ -35,7 +35,7 @@ export async function POST(request) {
     const timestamp = new Date().toISOString()
 
     // User message store karo
-    messageStore.add({
+    await messageStore.add({
       id: `${Date.now()}-user`,
       from,
       direction: "incoming",
@@ -51,7 +51,7 @@ export async function POST(request) {
     await sendWhatsAppMessage(from, replyText)
 
     // Bot message store karo
-    messageStore.add({
+    await messageStore.add({
       id: `${Date.now()}-bot`,
       from: "BOT",
       to: from,

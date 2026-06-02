@@ -5,13 +5,13 @@ import { sendWhatsAppMessage } from "@/lib/whatsapp"
 
 // GET — dashboard ke liye saare messages fetch karo
 export async function GET() {
-  const messages = messageStore.getAll()
+  const messages = await messageStore.getAll()
   return Response.json({ messages, total: messages.length })
 }
 
 // DELETE — saare messages clear karo
 export async function DELETE() {
-  messageStore.clear()
+  await messageStore.clear()
   return Response.json({ success: true })
 }
 
@@ -25,7 +25,7 @@ export async function POST(request) {
 
   const result = await sendWhatsAppMessage(to, text)
 
-  messageStore.add({
+  await messageStore.add({
     id: `${Date.now()}-manual`,
     from: "BOT (Manual)",
     to,
